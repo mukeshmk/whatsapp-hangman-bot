@@ -6,3 +6,5 @@ Built using tutorials from:
 
 Other useful links:
 [Twilio API for WhatsApp](https://www.twilio.com/docs/sms/whatsapp/api#templates-pre-registered-for-the-sandbox)
+HangmanGame code taken and modified from [here](https://github.com/andrewyang96/HangmanGame).
+[ngrok](https://ngrok.com/) for tunnelling localhost's webhook over internet.
