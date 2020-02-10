@@ -1,5 +1,5 @@
-# whatsapp-chat-bot
-WhatsApp ChatBot using Twilio Sandbox for WhatsApp
+# whatsapp-hangman-bot
+WhatsApp Hangman Bot built using Twilio Sandbox for WhatsApp
 
 Built using tutorials from:
 [Build a WhatsApp Chatbot With Python, Flask and Twilio](https://www.twilio.com/blog/build-a-whatsapp-chatbot-with-python-flask-and-twilio)
