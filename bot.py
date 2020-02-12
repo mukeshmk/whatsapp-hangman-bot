@@ -105,15 +105,26 @@ def bot():
     msg = resp.message()
 
     msgbody = ""
-    if 'start game' in incoming_msg and game_start == False:
+    if ('hi' in incoming_msg.lower() or 'hello' in incoming_msg.lower()) and game_start == False:
+        init()
+        msgbody += "Hi! Let's play Hangman!\n"
+        msgbody += "(to find out what I can do hit *cmd*)\n"
+    elif 'cmd' in incoming_msg.lower() and game_start == False:
+        init()
+        msgbody += "*cmd*: to find out what I can do!\n"
+        msgbody += "*start game*: to start game\n"
+        msgbody += "*quit*: to quit the game at anypoint\n"
+        msgbody += "*gl hf!* :)\n"
+    elif ('start game' in incoming_msg.lower() or 'start' in incoming_msg.lower()) and game_start == False:
         init()
         game_start = True
-        msgbody += 'Starting a game of Hangman...\n'
-        msgbody += 'Enter a Word: (_word: yourword_)\n'
-    elif 'quit' in incoming_msg and game_start == True:
+        msgbody += 'Starting a game of Hangman!\n'
+        msgbody += 'Enter a Word:\n'
+        msgbody += '(in this format -> _word: yourword_)\n'
+    elif 'quit' in incoming_msg.lower() and game_start == True:
         init()
         msgbody += 'quiting game!\n'
-    elif 'word: ' in incoming_msg and word == "" and game_start == True:
+    elif 'word: ' in incoming_msg.lower() and word == "" and game_start == True:
         word = incoming_msg.split(":")[1]
         init_word()
         count = 0
@@ -124,9 +135,9 @@ def bot():
         if attempts_remaining <= 0:
             msgbody += 'The word is {0}\n'.format(word)
         else:
-            msgbody = check_next_letter(msgbody, incoming_msg)
+            msgbody = check_next_letter(msgbody, incoming_msg.lower())
             if not guessed_before:
-                msgbody = hangman(msgbody, incoming_msg)
+                msgbody = hangman(msgbody, incoming_msg.lower())
             guessed_before = False
             msgbody = game_state(msgbody)
             if attempts_remaining > 0 and not word_solved:
