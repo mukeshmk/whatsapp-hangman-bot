@@ -91,9 +91,7 @@ def hangman(msgbody, next_letter):
         # Check if word is completely solved
         if False not in idxs:
             word_solved = True
-    else:
-        # The game is over: reveal the word
-        msgbody += 'The word is {0}\n'.format(word)
+            msgbody += 'The word is {0}\n'.format(word)
     return msgbody
 
 @app.route('/bot', methods=['POST'])
@@ -123,13 +121,22 @@ def bot():
         msgbody = get_next_letter(msgbody)
     elif len(incoming_msg) == 1 and count >= 0:
         count += 1
-        next_letter = ''
-        msgbody = check_next_letter(msgbody, incoming_msg)
-        if not guessed_before:
-            msgbody = hangman(msgbody, incoming_msg)
-        guessed_before = False
-        msgbody = game_state(msgbody)
-        msgbody = get_next_letter(msgbody)
+        if attempts_remaining <= 0:
+            msgbody += 'The word is {0}\n'.format(word)
+        else:
+            msgbody = check_next_letter(msgbody, incoming_msg)
+            if not guessed_before:
+                msgbody = hangman(msgbody, incoming_msg)
+            guessed_before = False
+            msgbody = game_state(msgbody)
+            if attempts_remaining > 0 and not word_solved:
+                msgbody = get_next_letter(msgbody)
+            elif attempts_remaining <= 0:
+                msgbody += 'Booooo! You Lost!\n'
+                msgbody += 'The word is {0}\n'.format(word)
+            elif word_solved:
+                msgbody += 'Congratulations! You won!\n'
+
     else:
         msgbody += "invalid cmd!\n"
 
