@@ -132,11 +132,14 @@ def bot():
             if attempts_remaining > 0 and not word_solved:
                 msgbody = get_next_letter(msgbody)
             elif attempts_remaining <= 0:
-                msgbody += 'Booooo! You Lost!\n'
+                msgbody += '*Booooo! You Lost!*\n'
                 msgbody += 'The word is {0}\n'.format(word)
+                msgbody += 'Quiting the game! Start again if you wanna play more!'
+                init()
             elif word_solved:
-                msgbody += 'Congratulations! You won!\n'
-
+                msgbody += '*Congratulations! You won!*\n'
+                msgbody += 'Quiting the game! Start again if you wanna play more!'
+                init()
     else:
         msgbody += "invalid cmd!\n"
 
